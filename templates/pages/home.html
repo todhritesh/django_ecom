@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}HOME{% endblock title %}
+{% block main %}
+
+
+<div class="w-full mt-5 flex md:flex-row flex-col-reverse">
+    <div class="md:w-5/12"></div>
+    <div class="md:w-7/12">
+        {% include 'components/carousel.html' %}
+    </div>
+
+</div>
+
+
+{% endblock main %}

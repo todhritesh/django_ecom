@@ -1,0 +1,61 @@
+
+<div class="w-full max-h-[400px] min-h-[400px] aspect-auto overflow-hidden relative">
+    <div class="slide  w-full absolute duration-200 transition-transform">
+        <img src="https://picsum.photos/id/2/500/500" alt="" class="w-full">
+    </div>
+    <div class="slide  w-full absolute duration-200 transition-transform">
+        <img src="https://picsum.photos/id/12/500/500" alt="" class="w-full">
+    </div>
+    <div class="slide  w-full absolute duration-200 transition-transform">
+        <img src="https://picsum.photos/id/21/500/500" alt="" class="w-full">
+    </div>
+    <div class="slide  w-full absolute duration-200 transition-transform">
+        <img src="https://picsum.photos/id/211/500/500" alt="" class="w-full">
+    </div>
+    <button class="text-xl bg-gray-500 bg-opacity-50 px-3 py-1 text-gray-100 hover:bg-opacity-70 hover:scale-105 duration-150 ml-10 bottom-1/2 absolute left-0 " onclick="next()"><i class="fa-solid fa-chevron-right"></i></button>
+    <button class="text-xl bg-gray-500 bg-opacity-50 px-3 py-1 text-gray-100 hover:bg-opacity-70 hover:scale-105 duration-150 mr-10 bottom-1/2 absolute right-0 " onclick="prev()"><i class="fa-solid fa-chevron-left"></i> </button>
+</div>
+
+
+<script>
+    console.log("hello")
+    let counter = 0
+    const slides = document.querySelectorAll(".slide")
+    let max_slides = slides.length
+    slides.forEach((slide,i)=>{
+        console.log(i)
+        slide.style.left = `${i*100}%`
+    })
+
+    function next(){
+        if(counter>=max_slides-1){
+            counter = 0
+        }else {
+            counter++;
+        }
+        slide_handler()
+    }
+
+    function prev(){
+        if(counter===0){
+            counter = max_slides
+        }
+        counter--;
+        slide_handler()
+    }
+
+    function slide_handler() {
+        slides.forEach(item=>{
+            item.style.transform = `translateX(-${counter*100}%)`
+        })
+    }
+
+    setInterval(()=>{
+        if(counter>=max_slides-1){
+            counter = 0
+        }else {
+            counter++;
+        }
+        slide_handler()
+    },5000)
+</script>
