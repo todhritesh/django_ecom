@@ -3,8 +3,12 @@
 {% block main %}
 
 
-<div class="w-full mt-5 flex md:flex-row flex-col-reverse">
-    <div class="md:w-5/12"></div>
+<div class="w-full mt-5 flex md:flex-row gap-2 flex-col-reverse">
+    <div class="md:w-5/12 flex flex-col justify-center gap-4">
+            <p class="text-4xl">DJANGO ECOM</p>
+            <div class="text-green-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla architecto placeat sapiente ducimus magnam. Minus porro voluptatem hic explicabo at?</div>
+            <a href="" class="px-4 py-2 rounded w-fit text-2xl text-gray-100 hover:text-white bg-green-400">Get Started</a>
+    </div>
     <div class="md:w-7/12">
         {% include 'components/carousel.html' %}
     </div>
