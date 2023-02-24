@@ -14,6 +14,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
     def delete_category(self , obj):
         return format_html('<a href="/admin/shop/category/{}/delete/">Delete</a>',obj.id)
+
+    prepopulated_fields = {'slug':('title',)}
         
 admin.site.register(Category,CategoryAdmin)
 
