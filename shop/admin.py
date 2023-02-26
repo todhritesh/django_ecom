@@ -16,7 +16,13 @@ class CategoryAdmin(admin.ModelAdmin):
         return format_html('<a href="/admin/shop/category/{}/delete/">Delete</a>',obj.id)
 
     prepopulated_fields = {'slug':('title',)}
+
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id','product_title','category','price','discount_price')
+
+    prepopulated_fields = {'slug':('product_title',)}
         
 admin.site.register(Category,CategoryAdmin)
-admin.site.register(Product)
+admin.site.register(Product,ProductAdmin)
 

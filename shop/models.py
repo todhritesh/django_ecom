@@ -28,7 +28,7 @@ class Product(BaseModel):
     price = models.FloatField()
     discount_price = models.FloatField()
     slug = models.SlugField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,related_name='products')
     image = models.ImageField(upload_to='products/',blank=True)
 
 

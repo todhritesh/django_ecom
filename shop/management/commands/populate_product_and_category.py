@@ -27,7 +27,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
     product_title = factory.Faker('sentence',nb_words=3)
     description = factory.Faker('sentence')
     slug = factory.lazy_attribute(lambda obj: slugify(obj.product_title))
-    price = factory.Faker('pyfloat',min_value=777.0,max_value=9999.0)
+    price = factory.Faker('pyfloat',min_value=777.0,max_value=99999.0)
     discount_price = factory.Faker('pyfloat',min_value=100.0,max_value=500.0)    
 
 
@@ -36,10 +36,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Create 10 categories
-        categories = CategoryFactory.create_batch(5)
+        # categories = CategoryFactory.create_batch(5)
+        categories = Category.objects.all()
 
         for category in categories:
-            ProductFactory.create_batch(1, category=category,image = factory.django.ImageField(color= tuple(random.randint(0, 255) for _ in range(3)) , width=200,height=200))
+            ProductFactory.create_batch(1000, category=category,image = factory.django.ImageField(color= tuple(random.randint(0, 255) for _ in range(3)) , width=200,height=200))
 
         self.stdout.write(self.style.SUCCESS('Data populated successfully.'))
 
