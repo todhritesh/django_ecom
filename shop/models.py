@@ -27,7 +27,13 @@ class Product(BaseModel):
     description = models.TextField()
     price = models.FloatField()
     discount_price = models.FloatField()
+    slug = models.SlugField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/products/',blank=True)
+    image = models.ImageField(upload_to='products/',blank=True)
+
+
+    def __str__(self):
+        return self.product_title
+    
     
 
