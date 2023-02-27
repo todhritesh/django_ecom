@@ -30,12 +30,12 @@ def products(req):
 
     return render(req, 'pages/products.html',context=context)
 
-def single_product(req,slug):
+def single_product(req,slug,id):
     context = {}
     
     categories = Category.objects.all()
     context['categories'] = categories
-    context['product'] = Product.objects.get(slug=slug)
-    context['related_products'] = Product.objects.exclude(pk=context['product'].id)[:50]
+    context['product'] = Product.objects.get(pk=id)
+    context['related_products'] = Product.objects.exclude(pk=id)[:50]
 
     return render(req, 'pages/single_product.html',context=context)
