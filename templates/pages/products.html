@@ -9,7 +9,7 @@
     <div class="w-full grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-4 my-4">
       {% for p in data %}
         <div class="product_card p-2 flex gap-1 flex-col border border-gray-300 hover:shadow-lg rounded-md hover:scale-105 duration-200">
-            <a href="" class="">
+            <a href="{%url 'single_product' p.slug%}" class="">
                 <img src="{{ p.image.url }}" class="w-full" style="aspect-ratio: 4/3;" alt="" />
             </a>
           <p class="text-lg">{{ p.product_title |truncatechars:20}}</p>

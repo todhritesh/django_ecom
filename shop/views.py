@@ -20,7 +20,7 @@ def products(req):
     products = ''
     cat = req.GET.get('category',None)
     if(cat!=None):
-        products = Product.objects.filter(category=cat)
+        products = Product.objects.filter(category__slug=cat)
     else:
         products = Product.objects.all()
     paginator = Paginator(products, 50)
@@ -29,3 +29,13 @@ def products(req):
     context = {'data':data,'categories':categories,'cat':cat}
 
     return render(req, 'pages/products.html',context=context)
+
+def single_product(req,slug):
+    context = {}
+    
+    categories = Category.objects.all()
+    context['categories'] = categories
+    context['product'] = Product.objects.get(slug=slug)
+    context['related_products'] = Product.objects.exclude(pk=context['product'].id)[:50]
+
+    return render(req, 'pages/single_product.html',context=context)

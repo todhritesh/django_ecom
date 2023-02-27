@@ -21,9 +21,15 @@
     <div class="max-w-screen relative ">
         <div class="w-full sticky top-0 z-10">
             {% include 'components/navbar.html' %}
-            <div class="py-2 px-4 bg-slate-300 w-full flex gap-4 overflow-x-scroll">
+            <div class="py-2 px-4 bg-slate-300 w-full flex gap-4 overflow-auto">
                 {% for category in categories  %}
-                    <a href="{%url 'products'%}?category={{category.id}}" class="text-orange-500">{{category.title}}</a>
+                    <a href="{%url 'products'%}?category={{category.slug}}" class="
+                        {% if request.GET.category == category.slug %}
+                             text-green-500
+                        {% else %}
+                             text-orange-500
+                        {% endif %}
+                    ">{{category.title}}</a>
                 {% endfor %}
             </div>
         </div>
