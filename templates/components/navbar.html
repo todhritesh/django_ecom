@@ -1,10 +1,12 @@
-<div class="w-full flex py-5 px-2 bg-green-500">
-    <div class="container mx-auto flex md:flex-row flex-col md:items-center">
+<div class="w-full h-full flex py-5 px-2  bg-green-500">
+    <div class="container h-full mx-auto flex md:flex-row flex-col md:items-center">
         <a href="{%url 'home'%}" class="brand flex-1 text-xl font-medium text-white">DJANGO ECOM</a>
-        <ul id="navbar_menu" class="duration-200 transition-height flex gap-4 md:flex-row flex-col md:h-auto h-0 justify-center md:w-auto w-full overflow-hidden">
-            <li class="text-lg text-gray-100 hover:text-white"><a href="{%url 'home'%}">Home</a></li>
+        <ul id="navbar_menu" class="duration-200 transition-height flex md:gap-4 gap-5 md:flex-row flex-col md:h-auto h-0 md:justify-center md:w-auto w-full overflow-hidden">
+            <li class="text-lg text-gray-100 hover:text-white md:mt-0 mt-6"><a href="{%url 'home'%}">Home</a></li>
             <li class="text-lg text-gray-100 hover:text-white"><a href="{%url 'products'%}">Products</a></li>
             <li class="text-lg text-gray-100 hover:text-white"><a href="">Cart</a></li>
+            <li class="text-lg text-gray-100 hover:text-white"><a href="{%url 'signup'%}">Signup</a></li>
+            <li class="text-lg text-gray-100 hover:text-white"><a href="{%url 'login'%}">Login</a></li>
         </ul>
     </div>
     <button id="toggler" class="self-start md:hidden block mx-2" onclick="toggle_navbar()" ><i class="fa-solid fa-bars"></i></button>
@@ -15,6 +17,6 @@
     const navbar_menu = document.getElementById('navbar_menu')
     toggler.onclick = () => {
         console.log("hello")
-        navbar_menu.classList.toggle('h-32')
+        navbar_menu.classList.toggle('h-[100vh]')
     }
 </script>

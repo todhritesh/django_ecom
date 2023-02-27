@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+  SIGNUP
+{% endblock %}
+{% block main %}
+  <div class="w-full my-10 flex justify-center" id="our_products">
+    <form method="post" action="" class="max-w-[500px] md:w-6/12 flex flex-col gap-4">
+        {%csrf_token%}
+        {{signup_form}}
+        <input type="submit" value="Register" class="w-fit self-start px-6 py-2 border-green-500 text-green-500 border-2 text-lg hover:text-white hover:bg-green-500 duration-200">
+    </form>
+  </div>
+{% endblock %}

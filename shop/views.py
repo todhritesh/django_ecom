@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import *
 from django.core.paginator import Paginator
+from .forms import SignupForm , LoginForm
+from django.contrib.auth import login as handle_login , authenticate 
 
 def home(req):
     context = {}
@@ -39,3 +41,38 @@ def single_product(req,slug,id):
     context['related_products'] = Product.objects.exclude(pk=id)[:50]
 
     return render(req, 'pages/single_product.html',context=context)
+
+
+def login(req):
+    login_form = LoginForm(req.POST or None)
+    context = {'login_form':login_form}
+    try:
+
+        if req.method=='POST':
+            if login_form.is_valid():
+                data = login_form.cleaned_data
+                user = authenticate(username=data.get('username'),password=data.get('password'))
+                if user is not None :
+                    handle_login(req, user)
+                    return redirect('products')
+            raise Exception('Something Went wrong')
+    except:
+        return render(req , 'pages/login.html',context=context)
+    return render(req , 'pages/login.html',context=context)
+
+def signup(req):
+    signup_form = SignupForm(req.POST or None)
+    context = {'signup_form':signup_form}
+    try:
+
+        if req.method=='POST':
+            if signup_form.is_valid():
+                data = signup_form.cleaned_data
+                user = User.objects.create_user(username=data.get('username'),email=data.get('email'),password=data.get('password'))
+                Account.objects.create(user=user)
+                context['signup_form'] = SignupForm()
+                return render(req , 'pages/signup.html',context=context)
+            raise Exception('Something Went wrong')
+    except:
+        return render(req , 'pages/signup.html',context=context)
+    return render(req , 'pages/signup.html',context=context)
