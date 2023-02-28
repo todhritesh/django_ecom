@@ -21,9 +21,10 @@
     <div class="max-w-screen relative ">
         <div class="w-full sticky top-0 z-10">
             {% include 'components/navbar.html' %}
-            <div class="py-2 px-4 bg-slate-300 w-full flex gap-4 overflow-auto">
+            <div class="py-2 px-4 bg-slate-300 w-full divide-x-2 flex overflow-auto">
                 {% for category in categories  %}
                     <a href="{%url 'products'%}?category={{category.slug}}" class="
+                        px-4
                         {% if request.GET.category == category.slug %}
                              text-green-500
                         {% else %}

@@ -30,13 +30,15 @@
                             <img src="{{p.image.url}}" class="w-full" style="aspect-ratio: 4/3;" alt="">
                         </a>
                         <p class="text-lg">{{p.product_title|truncatechars:20}}</p>
+                        <p>hello</p>
+                        <p>{{p.isWishlisted}}</p>
                         <div class="flex justify-between">
                             <p class="text-sm text-green-500">Rs: {{p.price|floatformat:2}}</p>
                             <p class="text-sm text-red-500 line-through">Rs: {{p.discount_price|floatformat:2}}</p>
                         </div>
                         <div class="flex justify-between text-2xl px-2">
                             <a href="" class=""><i class="fa-solid fa-cart-plus hover:bg-green-400 p-2 rounded-md duration-200"></i></a>
-                            <a href="" class=""><i class="fa-solid fa-heart text-red-500 hover:bg-green-400 p-2 rounded-md duration-200"></i></a>
+                            <button  onclick="handle_wishlist( '{{p.id}}' )" class=""><i id="{{p.id}}" class="fa-solid fa-heart text-gray-300 hover:bg-green-400 p-2 rounded-md duration-200 {%if p.isWishlisted%} text-red-500 {%endif%} "></i></button>
                       </div>
                     </div>
                 {% endfor %}
@@ -46,5 +48,26 @@
 
 </div>
 
+<script>
+    function handle_wishlist(id){
+        let url = "{%url 'handle_wishlist' 1 %}"
+        url = url.split('/')
+        url = url.slice(0,-1).join('/')
+        url += `/${id}`
+        fetch(url).then(res=>res.json()).then(data=>{
+            console.log(data)
+            if(data.success){
+                const wishlist = document.getElementById(id)
+                if(data.msg==='added'){
+                    wishlist.classList.remove('text-gray-300')
+                    wishlist.classList.add('text-red-500')
+                }else{
+                    wishlist.classList.add('text-gray-300')
+                    wishlist.classList.remove('text-red-500')
+                }
+            }
+        })
+    }
+</script>
 
 {% endblock main %}
