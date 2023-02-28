@@ -8,20 +8,9 @@
 
     <div class="w-full grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-4 my-4">
       {% for p in data %}
-        <div class="product_card p-2 flex gap-1 flex-col border border-gray-300 hover:shadow-lg rounded-md hover:scale-105 duration-200">
-            <a href="{%url 'single_product'  slug=p.slug id=p.id%}" class="">
-                <img src="{{ p.image.url }}" class="w-full" style="aspect-ratio: 4/3;" alt="" />
-            </a>
-          <p class="text-lg">{{ p.product_title |truncatechars:20}}</p>
-          <div class="flex justify-between">
-            <p class="text-sm text-green-500">Rs: {{ p.price|floatformat:2 }}</p>
-            <p class="text-sm text-red-500 line-through">Rs: {{ p.discount_price|floatformat:2 }}</p>
-          </div>
-          <div class="flex justify-between text-2xl px-2">
-                <a href="" class=""><i class="fa-solid fa-cart-plus hover:bg-green-400 p-2 rounded-md duration-200"></i></a>
-                <a href="" class=""><i class="fa-solid fa-heart text-red-500 hover:bg-green-400 p-2 rounded-md duration-200"></i></a>
-          </div>
-        </div>
+      
+        {% include 'components/product_card.html' %}
+
       {% endfor %}
     </div>
     <div class="w-full flex justify-center gap-4">
@@ -31,7 +20,7 @@
             <p class="text-gray-400" >PREV</p>
         {% endif %}
         {% if data.has_next %}
-            <a href="?page={{data.next_page_number}}&category={{cat}}" class="">NEXT</a>
+            <a href="?page={{data.next_page_number}}{%if cat%} &category={{cat}} {%endif%}" class="">NEXT</a>
         {%else%}
             <p class="text-gray-400" >PREV</p>
         {% endif %}

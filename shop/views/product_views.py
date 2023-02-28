@@ -16,7 +16,7 @@ def products(req):
             products = Product.objects.filter(category__slug=cat).annotate(isWishlisted=Case(
                 When(wishlist__user=user , then = True) ,
                 default=False,
-                output_field=BooleanField
+                output_field=BooleanField()
             ))
         else:
             products = Product.objects.filter(category__slug=cat)
@@ -25,7 +25,7 @@ def products(req):
             products = Product.objects.all().annotate(isWishlisted=Case(
                 When(wishlist__user=user , then = True) ,
                 default=False,
-                output_field=BooleanField
+                output_field=BooleanField()
             ))
         else:
             products = Product.objects.all()

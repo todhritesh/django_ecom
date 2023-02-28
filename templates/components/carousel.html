@@ -25,12 +25,10 @@
 
 
 <script>
-    console.log("hello")
     let counter = 0
     const slides = document.querySelectorAll(".slide")
     let max_slides = slides.length
     slides.forEach((slide,i)=>{
-        console.log(i)
         slide.style.left = `${i*100}%`
     })
 

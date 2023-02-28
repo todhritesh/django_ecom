@@ -13,4 +13,5 @@ urlpatterns = [
     path('product/<slug>/<int:id>',single_product,name="single_product"),
 
     path('handle_wishlist/<id>',handle_wishlist,name='handle_wishlist'),
+    path('wishlists',show_wishlists,name='show_wishlists'),
 ]

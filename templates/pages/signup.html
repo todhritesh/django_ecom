@@ -7,7 +7,10 @@
     <form method="post" action="" class="max-w-[500px] md:w-6/12 flex flex-col gap-4">
         {%csrf_token%}
         {{signup_form}}
-        <input type="submit" value="Register" class="w-fit self-start px-6 py-2 border-green-500 text-green-500 border-2 text-lg hover:text-white hover:bg-green-500 duration-200">
+        <div class="flex md:flex-row flex-col justify-between gap-4">
+          <input type="submit" value="Register" class="w-fit self-start px-6 py-2 border-green-500 text-green-500 border-2 text-lg hover:text-white hover:bg-green-500 duration-200">
+          <a class="text-orange-500" href="{%url 'login'%}">Already have account ? <br/> Login</a>
+        </div>
     </form>
   </div>
 {% endblock %}
