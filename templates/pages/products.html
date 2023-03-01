@@ -20,9 +20,9 @@
             <p class="text-gray-400" >PREV</p>
         {% endif %}
         {% if data.has_next %}
-            <a href="?page={{data.next_page_number}}{%if cat%} &category={{cat}} {%endif%}" class="">NEXT</a>
+            <a href="?page={{data.next_page_number}}{%if cat%}&category={{cat}} {%elif search%}&search={{search}} {%endif%}" class="">NEXT</a>
         {%else%}
-            <p class="text-gray-400" >PREV</p>
+            <p class="text-gray-400" >NEXT</p>
         {% endif %}
     </div>
   </div>
