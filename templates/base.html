@@ -41,7 +41,27 @@
 </body>
 
 <script>
-    function handle_wishlist(id){
+
+    function add_item_to_cart(product_id){
+        let url = "{%url 'add_item_to_cart' 1 %}"
+        url = url.split('/')
+        url = url.slice(0,-1).join('/')
+        url += `/${product_id}`
+        console.log(url)
+        fetch(url).then(res=>{
+            if(res.ok){
+                return res.json()
+            }else{
+                throw new Error(res.status)
+            }
+        }).then(data=>{
+            console.log(data)
+            const cart_item_count = document.getElementById('cart_item_count')
+            cart_item_count.innerHTML = data.total_qty
+        })
+    }
+
+    function handle_wishlist(id , from_single_page = 0){
         let url = "{%url 'handle_wishlist' 1 %}"
         url = url.split('/')
         url = url.slice(0,-1).join('/')
@@ -54,16 +74,27 @@
             }
         }).then(data=>{
             if(data.success){
-                const wishlist = document.getElementById(id)
-                if(data.msg==='added'){
-                    wishlist.classList.remove('text-gray-300')
-                    wishlist.classList.add('text-red-500')
+                if(from_single_page==0){
+                    const wishlist = document.getElementById(id)
+                    if(data.msg==='added'){
+                        wishlist.classList.remove('text-gray-300')
+                        wishlist.classList.add('text-red-500')
+                    }else{
+                        wishlist.classList.add('text-gray-300')
+                        wishlist.classList.remove('text-red-500')
+                    }
                 }else{
-                    wishlist.classList.add('text-gray-300')
-                    wishlist.classList.remove('text-red-500')
+                    const single_product_wishlist = document.getElementById('single_product_wishlist')
+                    if(data.msg==='added'){
+                        single_product_wishlist.innerText = 'Remove From Wishlist'
+                    }else{
+                        single_product_wishlist.innerText = 'Add To Wishlist'
+                    }
                 }
+                
             }
         }).catch(err=>{
+            console.log(err)
             window.location.href='{%url "login"%}'
           
         })

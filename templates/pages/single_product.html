@@ -20,8 +20,7 @@ PRODUCT
       <a href=""
         class="text-green-500 rounded-md tracking-wide bg-white-400 hover:text-white hover:bg-green-500 duration-200 border-2 w-fit border-green-500 px-4 py-1 text-xl">Add
         to Cart</a>
-      <a href=""
-        class="text-red-500 tracking-wide rounded-md bg-white-400 hover:text-white hover:bg-red-500 duration-200 border-2 w-fit border-red-500 px-4 py-1 text-xl">Wishlist</a>
+      <button id="single_product_wishlist" onclick="handle_wishlist('{{product.id}}',1)" class="text-red-500 tracking-wide rounded-md bg-white-400 hover:text-white hover:bg-red-500 duration-200 border-2 w-fit border-red-500 px-4 py-1 text-xl">{%if product.isWishlisted%}Remove From Wishlist{%else%}Add To Wishlist{%endif%}</button>
     </div>
   </div>
 </div>

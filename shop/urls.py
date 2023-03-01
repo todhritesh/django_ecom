@@ -3,6 +3,7 @@ from .views.views import *
 from .views.product_views import *
 from .views.auth_views import *
 from .views.wishlist_views import *
+from .views.cart_views import *
 
 urlpatterns = [
     path('',home,name="home"),
@@ -14,4 +15,6 @@ urlpatterns = [
 
     path('handle_wishlist/<id>',handle_wishlist,name='handle_wishlist'),
     path('wishlists',show_wishlists,name='show_wishlists'),
+
+    path('add/to/cart/<int:product_id>',add_item_to_cart,name="add_item_to_cart"),
 ]

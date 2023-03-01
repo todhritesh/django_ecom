@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from ..models import WishList , Product
+from ..models.models import WishList , Product ,Category
 from django.contrib.auth.models import User
 from django.shortcuts import render , redirect
 from django.urls import reverse_lazy
@@ -13,7 +13,6 @@ def handle_wishlist(req,id):
         data = {}
         user = req.user
         product = Product.objects.get(pk=id)
-        print(product)
         wishlist = WishList.objects.filter(user=user , product=product)
         if(len(wishlist)):
             wishlist[0].delete()
@@ -29,7 +28,9 @@ def handle_wishlist(req,id):
 def show_wishlists(req):
     context = {}
     user = req.user
+
+    categories = Category.objects.all()
+    context['categories'] = categories
     wishlists = WishList.objects.filter(user=user).select_related('product')
-    print(wishlists)
     context['wishlists'] = wishlists
     return render(req, 'pages/wishlist.html',context=context)

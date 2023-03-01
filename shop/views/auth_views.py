@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
-from ..models import Account
+from ..models.account_model import Account
 from django.contrib.auth.models import User
 from django.shortcuts import render , redirect
 from ..forms import SignupForm , LoginForm

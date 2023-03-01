@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from ..models import *
+from ..models.models import *
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required , user_passes_test
 from django.urls import reverse_lazy
@@ -42,7 +42,13 @@ def single_product(req,slug,id):
     
     categories = Category.objects.all()
     context['categories'] = categories
-    context['product'] = Product.objects.get(pk=id)
-    context['related_products'] = Product.objects.exclude(pk=id)[:50]
+    product = Product.objects.filter(pk=id)
+    related_products= Product.objects.exclude(pk=id)[:50]
 
+    user = req.user
+    if(user.is_authenticated):
+        product = product.annotate(isWishlisted=Case(When(wishlist__user=user,then=True),default=False,output_field=BooleanField()))
+        related_products = related_products.annotate(isWishlisted=Case(When(wishlist__user=user , then=True ) , default=False , output_field=BooleanField()))
+    context['product'] = product.first()
+    context['related_products'] = related_products
     return render(req, 'pages/single_product.html',context=context)

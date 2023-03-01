@@ -36,13 +36,6 @@ class Product(BaseModel):
         return self.product_title
 
 
-class Account(BaseModel):
-    user = models.OneToOneField(User, on_delete= models.CASCADE,related_name='account')
-    phone = models.CharField( max_length=15,blank=True)
-
-    def __str__(self):
-        return self.user.username
-
 
 class WishList(BaseModel):
     user = models.ForeignKey(User, on_delete= models.CASCADE)
