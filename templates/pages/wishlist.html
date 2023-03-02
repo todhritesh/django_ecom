@@ -19,9 +19,9 @@
             <p class="text-sm text-red-500 line-through">Rs: {{p.product.discount_price|floatformat:2}}</p>
         </div>
         <div class="flex justify-between text-2xl px-2">
-            <a href="" class=""><i class="fa-solid fa-cart-plus hover:bg-green-400 p-2 rounded-md duration-200"></i></a>
-            <button  onclick="handle_wishlist( '{{p.product.id}}' )" class=""><i id="{{p.product.id}}" class="fa-solid fa-heart text-gray-300 hover:bg-green-400 p-2 rounded-md duration-200  text-red-500 "></i></button>
-      </div>
+          <button onclick="add_item_to_cart({{p.product.id}})" class=""><i class="fa-solid fa-cart-plus hover:bg-green-400 p-2 rounded-md duration-200"></i></button>
+          <button  onclick="handle_wishlist( '{{p.product.id}}' )" class=""><i id="{{p.product.id}}" class="fa-solid fa-heart hover:bg-green-400 p-2 rounded-md duration-200  text-red-500 "></i></button>
+        </div>
     </div>
 
       {% endfor %}
