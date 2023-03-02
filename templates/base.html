@@ -42,22 +42,89 @@
 
 <script>
 
-    function add_item_to_cart(product_id){
+    function add_item_to_cart(product_id,from_cart_page=0){
         let url = "{%url 'add_item_to_cart' 1 %}"
         url = url.split('/')
-        url = url.slice(0,-1).join('/')
+        url = url.slice(0,-2).join('/')
         url += `/${product_id}`
-        console.log(url)
-        fetch(url).then(res=>{
+        fetch(from_cart_page ? `${url}?from_cart_page=1` : url).then(res=>{
             if(res.ok){
                 return res.json()
             }else{
                 throw new Error(res.status)
             }
         }).then(data=>{
-            console.log(data)
             const cart_item_count = document.getElementById('cart_item_count')
             cart_item_count.innerHTML = data.total_qty
+            if(from_cart_page){
+                const cart_items_container = document.getElementById('cart_items_container')
+                let items = ''
+                data.cart_items.forEach(item=>{
+                    items+=`
+                    <div class="flex gap-4 p-2 cart_item items-center">
+                        <div class="w-1/4 max-w-[300px] min-w-[130px]">
+                            <img src="/media/${item.product_image}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                        </div>
+                        <div class="flex flex-col w-full gap-2">
+                            <p>${item.product_title}</p>
+                            <p>Rs: ${Number(item.product_price).toFixed(2)}</p>
+                            <div class="flex w-full md:gap-10 md:justify-start justify-between">
+                                <span>Quantity :&nbsp;<span id="${item.product_id}" >${item.qty}</span></span>
+                                <span>Rs: ${Number(item.total_price).toFixed(2)}</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <button onclick="add_item_to_cart(${item.product_id},1)" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                                <button  onclick="remove_item_from_cart(${item.product_id},1)"  class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                })
+                cart_items_container.innerHTML = items
+            }
+        })
+    }
+
+    function remove_item_from_cart(product_id,from_cart_page=0){
+        let url = "{%url 'remove_item_from_cart' 1 %}"
+        url = url.split('/')
+        url = url.slice(0,-2).join('/')
+        url += `/${product_id}`
+        fetch(from_cart_page ? `${url}?from_cart_page=1` : url).then(res=>{
+            if(res.ok){
+                return res.json()
+            }else{
+                throw new Error(res.status)
+            }
+        }).then(data=>{
+            const cart_item_count = document.getElementById('cart_item_count')
+            cart_item_count.innerHTML = data.total_qty
+            if(from_cart_page){
+                const cart_items_container = document.getElementById('cart_items_container')
+                let items = ''
+                data.cart_items.forEach(item=>{
+                    items+=`
+                    <div class="flex gap-4 p-2 cart_item items-center">
+                        <div class="w-1/4 max-w-[300px] min-w-[130px]">
+                            <img src="/media/${item.product_image}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                        </div>
+                        <div class="flex flex-col w-full gap-2">
+                            <p>${item.product_title}</p>
+                            <p>Rs: ${Number(item.product_price).toFixed(2)}</p>
+                            <div class="flex w-full md:gap-10 md:justify-start justify-between">
+                                <span>Quantity :&nbsp;<span id="${item.product_id}" >${item.qty}</span></span>
+                                <span>Rs: ${Number(item.total_price).toFixed(2)}</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <button onclick="add_item_to_cart(${item.product_id},1)" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                                <button  onclick="remove_item_from_cart(${item.product_id},1)"  class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                })
+                cart_items_container.innerHTML = items
+            }
         })
     }
 
@@ -94,7 +161,6 @@
                 
             }
         }).catch(err=>{
-            console.log(err)
             window.location.href='{%url "login"%}'
           
         })
