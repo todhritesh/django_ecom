@@ -8,6 +8,9 @@
     {% load static %}
     <link rel="stylesheet" href="{%static 'css/main.min.css'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <style>
         * {
             scroll-behavior: smooth;
@@ -42,6 +45,12 @@
 
 <script>
 
+        toastr.options = {
+                "debug": false,
+                "positionClass": "toast-bottom-left",
+                "timeOut":2000
+                }
+
     function add_item_to_cart(product_id,from_cart_page=0){
         let url = "{%url 'add_item_to_cart' 1 %}"
         url = url.split('/')
@@ -54,6 +63,7 @@
                 throw new Error(res.status)
             }
         }).then(data=>{
+            toastr.success("Item Added to Cart");
             const cart_item_count = document.getElementById('cart_item_count')
             cart_item_count.innerHTML = data.total_qty
             if(from_cart_page){
@@ -99,6 +109,7 @@
                 throw new Error(res.status)
             }
         }).then(data=>{
+            toastr.success("Item Removed From Cart");
             const cart_item_count = document.getElementById('cart_item_count')
             cart_item_count.innerHTML = data.total_qty
             if(from_cart_page){
@@ -148,9 +159,11 @@
                 if(from_single_page==0){
                     const wishlist = document.getElementById(id)
                     if(data.msg==='added'){
+                        toastr.success("Item Added to Wishlist");
                         wishlist.classList.remove('text-gray-300')
                         wishlist.classList.add('text-red-500')
                     }else{
+                        toastr.success("Item Removed From Wishlist");
                         wishlist.classList.add('text-gray-300')
                         wishlist.classList.remove('text-red-500')
                     }
@@ -158,10 +171,13 @@
                     const single_product_wishlist = document.getElementById('single_product_wishlist')
                     if(data.msg==='added'){
                         single_product_wishlist.innerText = 'Remove From Wishlist'
+                        toastr.success("Item Added to Wishlist");
                     }else{
+                        toastr.success("Item Removed From Wishlist");
                         single_product_wishlist.innerText = 'Add To Wishlist'
                     }
                 }
+                
                 
             }
         }).catch(err=>{
@@ -170,4 +186,5 @@
         })
     }
 </script>
+
 </html>
