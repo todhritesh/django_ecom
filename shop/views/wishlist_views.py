@@ -7,6 +7,7 @@ from ..helper import *
 from django.contrib.auth import login as handle_login , logout as handle_logout , authenticate
 from django.http import JsonResponse
 from django.db.models import Value , BooleanField
+from django.core.paginator import Paginator
 
 def handle_wishlist(req,id):
     try:
@@ -32,5 +33,8 @@ def show_wishlists(req):
     categories = Category.objects.all()
     context['categories'] = categories
     wishlists = WishList.objects.filter(user=user).select_related('product')
-    context['wishlists'] = wishlists
+    paginator =  Paginator(wishlists, 10)
+    pg_no = req.GET.get('page',1)
+    data = paginator.get_page(pg_no)
+    context['wishlists'] = data
     return render(req, 'pages/wishlist.html',context=context)

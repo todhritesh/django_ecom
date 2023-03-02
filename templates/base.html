@@ -22,9 +22,9 @@
 </head>
 <body>
     <div class="max-w-screen relative ">
-        <div class="w-full sticky top-0 z-10">
+        <div id="header_wrapper" class="w-full fixed top-0 z-10 duration-200 transition-all">
             {% include 'components/navbar.html' %}
-            <div class="py-2 px-4 bg-slate-300 w-full divide-x-2 flex overflow-auto">
+            <div class="py-2 px-4 bg-slate-300 w-full  divide-x-2 flex overflow-auto">
                 {% for category in categories  %}
                     <a href="{%url 'products'%}?category={{category.slug}}" class="
                         px-4
@@ -37,7 +37,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="container mx-auto mt-10 px-2">
+        <div class="container mx-auto mt-52 px-2">
             {% block main %}{% endblock main %}
         </div>
     </div>

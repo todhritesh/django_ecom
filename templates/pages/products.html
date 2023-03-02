@@ -13,6 +13,7 @@
 
       {% endfor %}
     </div>
+    {% if data.has_other_pages %}
     <div class="w-full flex justify-center gap-4">
         {% if data.has_previous %}
             <a href="?page={{data.previous_page_number}}&category={{cat}}" class="">PREV</a>
@@ -25,5 +26,6 @@
             <p class="text-gray-400" >NEXT</p>
         {% endif %}
     </div>
+    {% endif %}
   </div>
 {% endblock %}

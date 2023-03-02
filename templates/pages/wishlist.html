@@ -26,17 +26,19 @@
 
       {% endfor %}
     </div>
-    {% comment %} <div class="w-full flex justify-center gap-4">
-        {% if data.has_previous %}
-            <a href="?page={{data.previous_page_number}}&category={{cat}}" class="">PREV</a>
+    {% if wishlists.has_other_pages %}
+      <div class="w-full flex justify-center gap-4">
+        {% if wishlists.has_previous %}
+            <a href="?page={{wishlists.previous_page_number}}" class="">PREV</a>
         {%else%}
             <p class="text-gray-400" >PREV</p>
         {% endif %}
-        {% if data.has_next %}
-            <a href="?page={{data.next_page_number}}{%if cat%} &category={{cat}} {%endif%}" class="">NEXT</a>
+        {% if wishlists.has_next %}
+            <a href="?page={{wishlists.next_page_number}}" class="">NEXT</a>
         {%else%}
             <p class="text-gray-400" >PREV</p>
         {% endif %}
-    </div> {% endcomment %}
+    </div> 
+    {% endif %}
   </div>
 {% endblock %}

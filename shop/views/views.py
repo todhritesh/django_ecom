@@ -5,7 +5,6 @@ from django.db.models import Case , When , BooleanField
 def home(req):
     context = {}
     categories = Category.objects.all().prefetch_related('products')
-    context['categories'] = categories
     products = {}
     if(req.user.is_authenticated):
         user = req.user
