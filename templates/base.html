@@ -58,6 +58,8 @@
             cart_item_count.innerHTML = data.total_qty
             if(from_cart_page){
                 const cart_items_container = document.getElementById('cart_items_container')
+                const cart_amount = document.getElementById('cart_amount')
+                cart_amount.innerText = data.cart_amount
                 let items = ''
                 data.cart_items.forEach(item=>{
                     items+=`
@@ -101,6 +103,8 @@
             cart_item_count.innerHTML = data.total_qty
             if(from_cart_page){
                 const cart_items_container = document.getElementById('cart_items_container')
+                const cart_amount = document.getElementById('cart_amount')
+                cart_amount.innerText = data.cart_amount
                 let items = ''
                 data.cart_items.forEach(item=>{
                     items+=`

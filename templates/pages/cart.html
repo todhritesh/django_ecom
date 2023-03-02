@@ -7,14 +7,14 @@
 <div class="w-full my-10 flex flex-col gap-2" id="our_products">
     <div class="border-l-4 border-green-400 pl-4 text-3xl">Your Cart</div>
 
-    <div class="w-full flex gap-4 my-4">
+    <div class="w-full flex md:flex-row flex-col gap-4 my-4">
 
         <div id="cart_items_container"  class="md:w-7/12">
             {% for cart_item in cart_items  %}
                 <div class="flex gap-4 p-2 cart_item items-center">
-                    <div class="w-1/4 max-w-[300px] min-w-[130px]">
+                    <a href="{%url 'single_product'  slug=cart_item.product.slug id=cart_item.product.id%}" class="w-1/4 max-w-[300px] min-w-[130px]">
                         <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
-                    </div>
+                    </a>
                     <div class="flex flex-col w-full gap-2">
                         <p>{{cart_item.product.product_title}}</p>
                         <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
@@ -30,7 +30,12 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="md:w-5/12"></div>
+        <div class="md:w-5/12">
+            <div class="border-l-4 border-green-400 pl-4 text-3xl">Cart Summary</div>
+            <div class="flex gap-4 flex-col mt-10 ml-4">
+                <p class="text-2xl">Total Amount : Rs <span id="cart_amount">{{cart_amount}}</span> </p>
+            </div>
+        </div>
     </div>
   </div>
 {% endblock %}
