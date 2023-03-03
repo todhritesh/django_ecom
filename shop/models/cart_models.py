@@ -9,6 +9,12 @@ class Cart(BaseModel):
     def __str__(self):
         return self.user.username
 
+    def calculate_total_amount(self):
+        total = 0
+        for item in self.cartitem_set.all():
+            total += item.product.price * item.qty
+        return total
+
     def total_quantity(self):
         return self.cartitem_set.aggregate(total_quantity=models.Sum('qty'))['total_quantity'] or 0    
 

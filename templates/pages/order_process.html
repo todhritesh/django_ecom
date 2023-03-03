@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}
+  YOUR CART
+{% endblock %}
+{% block main %}
+{% load custom_filters %}
+<div class="w-full my-10 flex flex-col gap-2" id="our_products">
+    <div class="border-l-4 border-green-400 pl-4 text-3xl">Order Summary</div>
+
+    <div class="w-full flex md:flex-row flex-col gap-4 my-4">
+
+        <div class="md:w-7/12 pl-4 flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+                <div class="md:text-2xl text-lg flex gap-5">Delivery Addresses <a class="px-4 py-1 text-xl bg-orange-400 hover:bg-orange-500 duration-200 text-white" href="{%url 'order_details_address'%}">Change Address</a></div>
+                <div class="flex flex-col gap-2">
+                    <p>Name : {{addr.name}}</p>
+                    <p>City : {{addr.city}}</p>
+                    <p>Mobile 1 : {{addr.mobile_1}}</p>
+                    <p>Mobile 2 : {{addr.mobile_2}}</p>
+                    <p>Address 1 : {{addr.address_1}}</p>
+                    <p>Address 2 : {{addr.address_2}}</p>
+                    <p>Flat no : {{addr.flat_no}}</p>
+                    <div class="flex gap-5">
+                        <p>State : {{addr.state}}</p>
+                        <p>Zip code : {{addr.zip_code}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <div class="text-2xl">Product Summary </div>
+                {% for cart_item in cart_items  %}
+                <div class="flex gap-4 p-2 cart_item items-center">
+                    <a href="{%url 'single_product'  slug=cart_item.product.slug id=cart_item.product.id%}" class="w-1/4 max-w-[300px] min-w-[130px]">
+                        <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                    </a>
+                    <div class="flex flex-col w-full gap-2">
+                        <div class="flex justify-between">
+                            <p>{{cart_item.product.product_title}}</p>
+                        </div>
+                        <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
+                        <div class="flex w-full md:gap-10 md:justify-start justify-between">
+                            <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
+                            <span>Rs: {{ cart_item.qty|multiply:cart_item.product.price|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-3xl">
+              Total Amount : Rs : {{cart_amount}}
+            </div>
+        </div>
+        <div class="md:w-5/12">
+            <div class="border-l-4 border-green-400 pl-4 text-3xl">Payment</div>
+            <form method="post" class="flex gap-4 flex-col mt-10 ml-4">
+                {%csrf_token%}
+              <div class="flex flex-col gap-4">
+                <div class="flex gap-4 text-xl items-center">
+                    <input type="radio" value="upi" name="payment" class="h-4 w-4 " id="upi">
+                    <label for="upi">Upi</label>
+                </div>
+                <div class="flex gap-4 text-xl">
+                    <input type="radio" value="cash_on_delivery" name="payment" class="h-4 w-4 " id="cod">
+                    <label for="cod">Cash on delivery</label>
+                </div>
+              </div>
+              <input type="submit" value="Confirm Order" class="w-fit self-start px-6 py-2 border-green-500 text-green-500 border-2 text-lg hover:text-white hover:bg-green-500 duration-200">
+            </form>
+        </div>
+    </div>
+    
+  </div>
+
+  <script>
+    
+
+  </script>
+{% endblock %}

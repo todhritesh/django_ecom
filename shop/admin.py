@@ -6,6 +6,7 @@ from django.utils.html import format_html
 from django.urls import reverse
 from .models.account_model import Account
 from .models.cart_models import *
+from .models.order_models import *
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id','title','description','slug','created_at','edit_category','delete_category')
@@ -36,4 +37,8 @@ admin.site.register(Account)
 admin.site.register(WishList)
 admin.site.register(Cart)
 admin.site.register(CartItem,CartItemAdmin)
+admin.site.register(Address) 
+admin.site.register(Order) 
+admin.site.register(OrderItem) 
+admin.site.register(Payment) 
 

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+  YOUR CART
+{% endblock %}
+{% block main %}
+{% load custom_filters %}
+<div class="w-full my-10 flex flex-col gap-2" id="our_products">
+    <div class="border-l-4 border-green-400 pl-4 text-3xl">Order Details</div>
+
+    <div class="w-full flex md:flex-row flex-col gap-4 my-4">
+
+        <form method="post" class="md:w-7/12 pl-4 flex flex-col gap-4 ">
+          {%csrf_token%}
+          <div class="text-2xl">Saved Addresses</div>
+            <div class="my-4 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-3">
+              {% for address in addresses %}
+              <label for="{{address.id}}" class="flex gap-2 w-full p-2  border-2 border-green-300 ">
+                <div class="flex flex-col gap-2">
+                  
+                  <p>Name : {{address.name}}</p>
+                  <p>Address : {{address.address_1}}</p>
+                  <p>Phone no : {{address.mobile_1}}</p>
+                </div>
+                <input class="self-start ml-auto" id="{{address.id}}" type="radio" value="{{address.id}}" name="address" id="">
+              </label>
+              {% endfor %}
+            </div>
+            <div class="">
+              <input type="submit" value="Add Address" class="w-fit self-start px-6 py-2 text-white text-lg bg-green-500 hover:bg-green-600 duration-200">
+            </div>
+        </form>
+        <div class="md:w-5/12">
+            <div class="border-l-4 border-green-400 pl-4 text-3xl">Add a New Address</div>
+            <form method="post" class="flex gap-4 flex-col mt-10 ml-4">
+              {%csrf_token%}
+              {{address_form}}
+              <input type="submit" value="Add Address" class="w-fit self-start px-6 py-2 border-green-500 text-green-500 border-2 text-lg hover:text-white hover:bg-green-500 duration-200">
+            </form>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    
+
+  </script>
+{% endblock %}

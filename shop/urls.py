@@ -4,6 +4,7 @@ from .views.product_views import *
 from .views.auth_views import *
 from .views.wishlist_views import *
 from .views.cart_views import *
+from .views.order_views import *
 
 urlpatterns = [
     path('',home,name="home"),
@@ -20,4 +21,8 @@ urlpatterns = [
     path('remove/from/cart/<int:product_id>/',remove_item_from_cart,name="remove_item_from_cart"),
     path('view/cart',view_cart,name="view_cart"),
     path('delete/item/from/cart/<int:cart_item_id>',delete_item_from_cart,name="delete_item_from_cart"),
+
+    path('order_details/address',AddressView.as_view(),name="order_details_address"),
+    
+    path('order_details/process/<int:addr>',OrderProcessView.as_view(),name="order_details_process"),
 ]
