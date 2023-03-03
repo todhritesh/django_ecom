@@ -33,8 +33,8 @@ class OrderItem(BaseModel):
     qty = models.PositiveIntegerField(default=1)
     price = models.FloatField()
 
-    # def __str__(self):
-    #     return self.product.product_title + ' - ' + self.qty
+    def __str__(self):
+        return self.product.product_title + ' - '+ str(self.qty)
     
 
 class Payment(BaseModel):

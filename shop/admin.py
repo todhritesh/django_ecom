@@ -30,6 +30,12 @@ class ProductAdmin(admin.ModelAdmin):
 
 class CartItemAdmin(admin.ModelAdmin):
     list_display = ('id','product','qty')
+
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('id','product','price','qty')
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id','status','total_amount')
         
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Product,ProductAdmin)
@@ -38,7 +44,7 @@ admin.site.register(WishList)
 admin.site.register(Cart)
 admin.site.register(CartItem,CartItemAdmin)
 admin.site.register(Address) 
-admin.site.register(Order) 
-admin.site.register(OrderItem) 
+admin.site.register(Order,OrderAdmin) 
+admin.site.register(OrderItem,OrderItemAdmin) 
 admin.site.register(Payment) 
 

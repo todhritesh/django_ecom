@@ -5,6 +5,7 @@ from ..models.order_models import *
 from ..models.cart_models import *
 from django.db.models import ExpressionWrapper , F , FloatField , Sum
 from ..forms import AddressForm
+from django.contrib import messages
 
 class AddressView(TemplateView):
     template_name = 'pages/order_details.html'
@@ -28,8 +29,9 @@ class AddressView(TemplateView):
             addr.save()
             return redirect('order_details_address')
         else:
+            messages.error(req, "Please select valid address")
             return redirect(req.META.get('HTTP_REFERER'))
-        return render(req, self.template_name,{'address_form':AddressForm()})
+        return redirect('order_details_address')
 
 class OrderProcessView(TemplateView):
     template_name = 'pages/order_process.html'
@@ -52,6 +54,7 @@ class OrderProcessView(TemplateView):
     def post(self , req , addr):
         mode_of_payment = req.POST.get('payment',None)
         if(mode_of_payment is None):
+            messages.error(req, "Please select valid payment mode")
             return redirect(req.META.get('HTTP_REFERER'))
         user = req.user
         address = Address.objects.get(id=addr)
@@ -74,5 +77,6 @@ class OrderProcessView(TemplateView):
         payment.mode_of_payment = mode_of_payment
         payment.save()
         cart.delete()
+        messages.success(req, "Order Placed Successfully")
         return redirect('home')
 

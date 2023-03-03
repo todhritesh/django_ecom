@@ -23,7 +23,127 @@
                             </button>
                         </div>
                         <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
-                        <div class="flex w-full md:gap-10 md:justify-start justify-between">
+                        <div class="flex w-full md:flex-row flex-col md:gap-10 md:justify-start justify-between">
+                            <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
+                            <span>Rs: {{ cart_item.qty|multiply:cart_item.product.price|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="add_item_to_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                            <button  onclick="remove_item_from_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for cart_item in cart_items  %}
+                <div class="flex gap-4 p-2 cart_item items-center">
+                    <a href="{%url 'single_product'  slug=cart_item.product.slug id=cart_item.product.id%}" class="w-1/4 max-w-[300px] min-w-[130px]">
+                        <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                    </a>
+                    <div class="flex flex-col w-full gap-2">
+                        <div class="flex justify-between">
+                            <p>{{cart_item.product.product_title}}</p>
+                            <button onclick="delete_item_from_cart({{cart_item.id}},'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
+                        <div class="flex w-full md:flex-row flex-col md:gap-10 md:justify-start justify-between">
+                            <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
+                            <span>Rs: {{ cart_item.qty|multiply:cart_item.product.price|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="add_item_to_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                            <button  onclick="remove_item_from_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for cart_item in cart_items  %}
+                <div class="flex gap-4 p-2 cart_item items-center">
+                    <a href="{%url 'single_product'  slug=cart_item.product.slug id=cart_item.product.id%}" class="w-1/4 max-w-[300px] min-w-[130px]">
+                        <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                    </a>
+                    <div class="flex flex-col w-full gap-2">
+                        <div class="flex justify-between">
+                            <p>{{cart_item.product.product_title}}</p>
+                            <button onclick="delete_item_from_cart({{cart_item.id}},'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
+                        <div class="flex w-full md:flex-row flex-col md:gap-10 md:justify-start justify-between">
+                            <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
+                            <span>Rs: {{ cart_item.qty|multiply:cart_item.product.price|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="add_item_to_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                            <button  onclick="remove_item_from_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for cart_item in cart_items  %}
+                <div class="flex gap-4 p-2 cart_item items-center">
+                    <a href="{%url 'single_product'  slug=cart_item.product.slug id=cart_item.product.id%}" class="w-1/4 max-w-[300px] min-w-[130px]">
+                        <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                    </a>
+                    <div class="flex flex-col w-full gap-2">
+                        <div class="flex justify-between">
+                            <p>{{cart_item.product.product_title}}</p>
+                            <button onclick="delete_item_from_cart({{cart_item.id}},'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
+                        <div class="flex w-full md:flex-row flex-col md:gap-10 md:justify-start justify-between">
+                            <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
+                            <span>Rs: {{ cart_item.qty|multiply:cart_item.product.price|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="add_item_to_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                            <button  onclick="remove_item_from_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for cart_item in cart_items  %}
+                <div class="flex gap-4 p-2 cart_item items-center">
+                    <a href="{%url 'single_product'  slug=cart_item.product.slug id=cart_item.product.id%}" class="w-1/4 max-w-[300px] min-w-[130px]">
+                        <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                    </a>
+                    <div class="flex flex-col w-full gap-2">
+                        <div class="flex justify-between">
+                            <p>{{cart_item.product.product_title}}</p>
+                            <button onclick="delete_item_from_cart({{cart_item.id}},'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
+                        <div class="flex w-full md:flex-row flex-col md:gap-10 md:justify-start justify-between">
+                            <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
+                            <span>Rs: {{ cart_item.qty|multiply:cart_item.product.price|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="add_item_to_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                            <button  onclick="remove_item_from_cart({{cart_item.product.id}},1,'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for cart_item in cart_items  %}
+                <div class="flex gap-4 p-2 cart_item items-center">
+                    <a href="{%url 'single_product'  slug=cart_item.product.slug id=cart_item.product.id%}" class="w-1/4 max-w-[300px] min-w-[130px]">
+                        <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                    </a>
+                    <div class="flex flex-col w-full gap-2">
+                        <div class="flex justify-between">
+                            <p>{{cart_item.product.product_title}}</p>
+                            <button onclick="delete_item_from_cart({{cart_item.id}},'{%url "single_product"  slug=cart_item.product.slug id=cart_item.product.id%}')" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                        <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
+                        <div class="flex w-full md:flex-row flex-col md:gap-10 md:justify-start justify-between">
                             <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
                             <span>Rs: {{ cart_item.qty|multiply:cart_item.product.price|floatformat:2 }}</span>
                         </div>
@@ -37,9 +157,13 @@
         </div>
         <div class="md:w-5/12">
             <div class="border-l-4 border-green-400 pl-4 text-3xl">Cart Summary</div>
-            <div class="flex gap-4 flex-col mt-10 ml-4">
+            <div class="flex gap-4 flex-col mt-10  md:ml-4">
                 <p class="text-2xl">Total Amount : Rs <span id="cart_amount">{{cart_amount}}</span> </p>
+                <div class="relative w-full flex justify-center px-10">
+                    <a href="{%url 'order_details_address'%}"  class="md:static fixed bottom-0 font-bold md:w-fit w-full self-start px-6 py-2 text-white text-xl bg-green-500 hover:bg-green-600 duration-200">PROCEED TO CHECKOUT</a>
+                </div>
             </div>
+
         </div>
     </div>
   </div>
