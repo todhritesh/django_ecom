@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from ..models.models import *
+from ..models.product_models import *
 from django.db.models import Case , When , BooleanField
 
 def home(req):

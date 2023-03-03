@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from ..models.models import WishList , Product ,Category
+from ..models.product_models import *
+from ..models.wishlist_models import *
 from django.contrib.auth.models import User
 from django.shortcuts import render , redirect
 from django.urls import reverse_lazy

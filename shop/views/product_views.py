@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from ..models.models import *
+from ..models.product_models import *
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required , user_passes_test
 from django.urls import reverse_lazy

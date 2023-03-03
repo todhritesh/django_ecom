@@ -1,5 +1,5 @@
 from .models.cart_models import Cart
-from .models.models import Category
+from .models.product_models import Category
 
 def cart_context_processor(req):
     user = req.user

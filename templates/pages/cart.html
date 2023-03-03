@@ -16,7 +16,12 @@
                         <img src="{{cart_item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
                     </a>
                     <div class="flex flex-col w-full gap-2">
-                        <p>{{cart_item.product.product_title}}</p>
+                        <div class="flex justify-between">
+                            <p>{{cart_item.product.product_title}}</p>
+                            <button onclick="delete_item_from_cart({{cart_item.id}})" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
                         <p>Rs: {{cart_item.product.price|floatformat:2}}</p>
                         <div class="flex w-full md:gap-10 md:justify-start justify-between">
                             <span>Quantity :&nbsp;<span id="{{cart_item.product.id}}" >{{cart_item.qty}}</span></span>
@@ -38,4 +43,33 @@
         </div>
     </div>
   </div>
+
+  <script>
+    function delete_item_from_cart(cart_item_id){
+        let url = "{%url 'delete_item_from_cart' 1 %}"
+        url = url.split('/')
+        url = url.slice(0,-1).join('/')
+        url += `/${cart_item_id}`
+        console.log(url)
+        fetch(url).then(res=>{
+            if(res.ok){
+                return res.json()
+            }else{
+                throw new Error(res.status)
+            }
+        }).then(data=>{
+            console.log(data)
+            toastr.success("Item Deleted From Cart");
+            const cart_item_count = document.getElementById('cart_item_count')
+            cart_item_count.innerHTML = data.total_qty
+                const cart_items_container = document.getElementById('cart_items_container')
+                const cart_amount = document.getElementById('cart_amount')
+                cart_amount.innerText = data.cart_amount
+                let = items = generate_updated_cart_items(data, items = '')
+
+                cart_items_container.innerHTML = items
+        })
+    }
+
+  </script>
 {% endblock %}

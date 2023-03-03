@@ -1,4 +1,5 @@
-from .models import BaseModel , Product
+from .models import BaseModel 
+from .product_models import Product
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -15,9 +16,6 @@ class CartItem(BaseModel):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     qty = models.PositiveIntegerField(default=1)
-
-    def total_qty (self):
-        print(self.qty)
 
     def __str__(self):
         return self.product.product_title + ' - ' + self.qty
