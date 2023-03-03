@@ -50,18 +50,19 @@
 <script>
 
 
-    function generate_updated_cart_items(data, items) {
+    function generate_updated_cart_items(data, items,single_product_url) {
+        console.log(single_product_url)
         data.cart_items.forEach(item => {
 
             items += `
                     <div class="flex gap-4 p-2 cart_item items-center">
-                        <div class="w-1/4 max-w-[300px] min-w-[130px]">
+                        <a href='${single_product_url}' class="w-1/4 max-w-[300px] min-w-[130px]">
                             <img src="/media/${item.product_image}" class="w-full" style="aspect-ratio: 1/1;" alt="">
-                        </div>
+                        </a>
                         <div class="flex flex-col w-full gap-2">
                             <div class="flex justify-between">
                                 <p>${item.product_title}</p>
-                                <button onclick="delete_item_from_cart(${item.id})" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
+                                <button onclick="delete_item_from_cart(${item.id},'${single_product_url}')" class="md:mr-10 text-xl text-red-500 hover:scale-110 hover:bg-red-100 px-2 rounded py-1 duration-200" >
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>                            <p>Rs: ${Number(item.product_price).toFixed(2)}</p>
@@ -70,8 +71,8 @@
                                 <span>Rs: ${Number(item.total_price).toFixed(2)}</span>
                             </div>
                             <div class="flex gap-4">
-                                <button onclick="add_item_to_cart(${item.product_id},1)" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
-                                <button  onclick="remove_item_from_cart(${item.product_id},1)"  class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
+                                <button onclick="add_item_to_cart(${item.product_id},1,'${single_product_url}')" class="text-3xl text-green-500"><i class="fa-solid fa-square-plus"></i></button>
+                                <button  onclick="remove_item_from_cart(${item.product_id},1,'${single_product_url}')"  class="text-3xl text-red-500"><i class="fa-solid fa-square-minus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -87,7 +88,7 @@
         "timeOut": 2000
     }
 
-    function add_item_to_cart(product_id, from_cart_page = 0) {
+    function add_item_to_cart(product_id, from_cart_page = 0,single_product_url) {
         let url = "{%url 'add_item_to_cart' 1 %}"
         url = url.split('/')
         url = url.slice(0, -2).join('/')
@@ -106,14 +107,14 @@
                 const cart_items_container = document.getElementById('cart_items_container')
                 const cart_amount = document.getElementById('cart_amount')
                 cart_amount.innerText = data.cart_amount
-                let = items = generate_updated_cart_items(data, items = '')
+                let = items = generate_updated_cart_items(data, items = '',single_product_url)
 
                 cart_items_container.innerHTML = items
             }
         })
     }
 
-    function remove_item_from_cart(product_id, from_cart_page = 0) {
+    function remove_item_from_cart(product_id, from_cart_page = 0,single_product_url) {
         let url = "{%url 'remove_item_from_cart' 1 %}"
         url = url.split('/')
         url = url.slice(0, -2).join('/')
@@ -132,7 +133,7 @@
                 const cart_items_container = document.getElementById('cart_items_container')
                 const cart_amount = document.getElementById('cart_amount')
                 cart_amount.innerText = data.cart_amount
-                let = items = generate_updated_cart_items(data, items = '')
+                let = items = generate_updated_cart_items(data, items = '',single_product_url)
                 cart_items_container.innerHTML = items
             }
         })
