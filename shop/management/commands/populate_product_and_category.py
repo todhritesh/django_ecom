@@ -40,7 +40,7 @@ class Command(BaseCommand):
         categories = Category.objects.all()
 
         for category in categories:
-            ProductFactory.create_batch(1000, category=category,image = factory.django.ImageField(color= tuple(random.randint(0, 255) for _ in range(3)) , width=200,height=200))
+            ProductFactory.create_batch(150, category=category,image = factory.django.ImageField(color= tuple(random.randint(0, 255) for _ in range(3)) , width=200,height=200))
 
         self.stdout.write(self.style.SUCCESS('Data populated successfully.'))
 
