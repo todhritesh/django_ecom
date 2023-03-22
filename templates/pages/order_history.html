@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+  YOUR CART
+{% endblock %}
+{% block main %}
+{% load custom_filters %}
+<div class="w-full my-10 flex flex-col gap-2" id="our_products">
+    <div class="border-l-4 border-green-400 pl-4 text-3xl">Order history</div>
+
+    <div class="w-full flex md:flex-row flex-col gap-4 my-4">
+
+        <div id="cart_items_container"  class="md:w-7/12">
+            
+            {% for order in orders  %}
+            <div class="border border-green-400 my-2 p-4">
+            <div class="flex justify-between gap-2">
+                <p class="text-lg">Ordered on : {{order.created_at}}</p>
+                <p class="text-lg text-blue-500">Status : {{order.status}}</p>
+            </div>
+            <div class="flex flex-col gap-8">
+                {% for item in order.items.all %}
+                    <div class="flex gap-4 p-2 cart_item items-center">
+                        <div class="w-1/4 max-w-[300px] min-w-[130px]">
+                            <img src="{{item.product.image.url}}" class="w-full" style="aspect-ratio: 1/1;" alt="">
+                        </div>
+                        <div class="flex flex-col w-full gap-2">
+                            <div class="flex justify-between">
+                                <p>{{item.product.product_title}}</p>
+                            </div>
+                            <p>Rs: {{item.product.price|floatformat:2}}</p>
+                            <div class="flex w-full md:flex-row flex-col md:gap-10 md:justify-start justify-between">
+                                <span>Quantity :&nbsp;<span  >{{item.qty}}</span></span>
+                                <span>Rs: {{ item.qty|multiply:item.price|floatformat:2 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+{% endblock %}

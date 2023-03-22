@@ -6,6 +6,9 @@ import json
 from django.db.models import F, ExpressionWrapper, FloatField , Value , Sum
 from django.db.models.functions import Concat
 from django.conf import settings
+from django.contrib.auth.decorators import user_passes_test
+from ..helper import has_items_in_cart
+from django.urls import reverse_lazy
 
 
 def is_cart_item_exist(cart):
@@ -99,6 +102,7 @@ def delete_item_from_cart(req , cart_item_id):
     context['total_qty'] = total_qty
     return JsonResponse(context)
 
+@user_passes_test(has_items_in_cart,login_url=reverse_lazy('view_cart'))
 def view_cart(req):
     context = {}
     user = req.user

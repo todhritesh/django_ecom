@@ -6,9 +6,20 @@ from ..models.cart_models import *
 from django.db.models import ExpressionWrapper , F , FloatField , Sum
 from ..forms import AddressForm
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
+from ..helper import has_items_in_cart
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import UserPassesTestMixin
 
-class AddressView(TemplateView):
+class AddressView(UserPassesTestMixin,TemplateView):
     template_name = 'pages/order_details.html'
+
+    def test_func(self):
+        return CartItem.objects.filter(cart__user=self.request.user).count()>0
+
+    def handle_no_permission(self):
+        return redirect('view_cart')
+
     def get(self , req):
         user = req.user
         context = {}
@@ -35,6 +46,14 @@ class AddressView(TemplateView):
 
 class OrderProcessView(TemplateView):
     template_name = 'pages/order_process.html'
+
+
+    def test_func(self):
+        return CartItem.objects.filter(cart__user=self.request.user).count()>0
+
+    def handle_no_permission(self):
+        return redirect('view_cart')
+
     def get(self , req , addr):
         user = req.user
         context = {}
@@ -64,6 +83,7 @@ class OrderProcessView(TemplateView):
         order.address = address
         order.total_amount = cart.calculate_total_amount()
         order.user = user
+        ordre.status = 'SUCCESS'
         order.save()
         for item in cart_items:
             order_item = OrderItem()

@@ -135,3 +135,17 @@ STATIC_ROOT = BASE_DIR/'staticfiles_build'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR/'media/'
+
+
+
+# paytm
+
+PAYTM_COMPANY_NAME = "Ecom"   # For representation purposes 
+PAYTM_INDUSTRY_TYPE_ID = "PROD"     # For staging environment
+PAYTM_CHANNEL_ID = "WEB"
+PAYTM_MERCHANT_KEY = ""
+PAYTM_MERCHANT_ID = ""
+PAYTM_CALLBACK_URL = "http://localhost:8000/response/" # Hardcode
+PAYTM_WEBSITE = "DEFAULT"
+PAYTM_PAYMENT_GATEWAY_URL = "https://securegw.paytm.in/order/process"
+PAYTM_TRANSACTION_STATUS_URL = "https://securegw.paytm.in/order/status"

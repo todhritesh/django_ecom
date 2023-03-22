@@ -5,6 +5,8 @@ from .views.auth_views import *
 from .views.wishlist_views import *
 from .views.cart_views import *
 from .views.order_views import *
+from .views.payment import *
+from .views.order_history_views import view_order_history
 
 urlpatterns = [
     path('',home,name="home"),
@@ -25,4 +27,9 @@ urlpatterns = [
     path('order_details/address',AddressView.as_view(),name="order_details_address"),
     
     path('order_details/process/<int:addr>',OrderProcessView.as_view(),name="order_details_process"),
+
+    path('order/history',view_order_history,name="order_history"),
+
+    path('payment/', payment),
+    path('response/', response),
 ]
